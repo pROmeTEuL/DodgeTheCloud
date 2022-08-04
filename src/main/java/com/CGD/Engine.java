@@ -5,6 +5,8 @@ import org.jsfml.system.*;
 import org.jsfml.window.*;
 import org.jsfml.window.event.*;
 
+import java.util.Vector;
+
 public class Engine {
 
     Engine() {
@@ -42,13 +44,22 @@ public class Engine {
     }
     private void update(float dtAsSeconds) {
         player.update(dtAsSeconds, resolution.y);
+        for (Cloud el : clouds) {
+            System.out.println("cloud update");
+            el.update(dtAsSeconds);
+        }
     }
     private void draw() {
         window.clear(new Color(0, 147, 255));
         window.draw(player.getSprite());
+        for (Cloud el : clouds) {
+            System.out.println("cloud draw");
+            window.draw(el.getSprite());
+        }
         window.display();
     }
     private RenderWindow window;
     private final Vector2i resolution = new Vector2i(1280, 720);
     private Player player = new Player();
+    private Vector<Cloud> clouds = new Vector<Cloud>(resolution.x);
 }
