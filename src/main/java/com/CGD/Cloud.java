@@ -13,7 +13,7 @@ public class Cloud {
     }
     public void spawn() {
         Random rng = new Random();
-        switch (rng.nextInt() % 3) {
+        switch (Math.abs(rng.nextInt() % 3)) {
             case 0:
                 sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1.png"));
                 System.out.println("cloud created with sprite 1");
@@ -31,8 +31,8 @@ public class Cloud {
                 sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1.png"));
                 break;
         }
-        position = new Vector2f(resolutionX + sprite.getLocalBounds().width, rng.nextInt() % 7 * 100);
-        speedModifier = rng.nextInt() % 151;
+        position = new Vector2f(resolutionX + sprite.getLocalBounds().width, Math.abs(rng.nextInt() % 7 * 100));
+        speedModifier = Math.abs(rng.nextInt() % 151);
         sprite.setPosition(position);
     }
     public void update(float elapsedTime) {
@@ -42,7 +42,7 @@ public class Cloud {
             return;
         }
         position = new Vector2f(position.x - ((speed + speedModifier) * elapsedTime), position.y);
-        System.out.println("moving: " + position.x);
+        System.out.println("moving: " + position.x + ";" + position.y);
         sprite.setPosition(position);
     }
     public Sprite getSprite() {

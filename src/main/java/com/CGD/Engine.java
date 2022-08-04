@@ -11,6 +11,8 @@ public class Engine {
 
     Engine() {
         window = new RenderWindow(new VideoMode(resolution.x, resolution.y), "Game", WindowStyle.DEFAULT);
+        for (int i = 0; i < clouds.length; ++i)
+            clouds[i] = new Cloud(resolution.x);
     }
     public void run() {
         Clock clock = new Clock();
@@ -44,25 +46,18 @@ public class Engine {
     }
     private void update(float dtAsSeconds) {
         player.update(dtAsSeconds, resolution.y);
-        for (Cloud el : clouds) {
-            System.out.println("cloud update");
-            el.update(dtAsSeconds);
-        }
-        cloud.update(dtAsSeconds);
+        for (int i = 0; i < clouds.length; ++i)
+            clouds[i].update(dtAsSeconds);
     }
     private void draw() {
         window.clear(new Color(0, 147, 255));
         window.draw(player.getSprite());
-        for (Cloud el : clouds) {
-            System.out.println("cloud draw");
-            window.draw(el.getSprite());
-        }
-        window.draw(cloud.getSprite());
+        for (int i = 0; i < clouds.length; ++i)
+            window.draw(clouds[i].getSprite());
         window.display();
     }
     private RenderWindow window;
     private final Vector2i resolution = new Vector2i(1280, 720);
     private Player player = new Player();
-    private Vector<Cloud> clouds = new Vector<Cloud>(resolution.x);
-    private Cloud cloud = new Cloud(resolution.x);
+    private Cloud[] clouds = new Cloud[4];
 }
