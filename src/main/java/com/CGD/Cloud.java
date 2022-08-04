@@ -27,21 +27,23 @@ public class Cloud {
                 sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1"));
                 break;
         }
+        sprite.setOrigin(0, 0);
         position = new Vector2f(resolutionX + sprite.getLocalBounds().width, 0);
     }
     public void spawn() {
         Random rng = new Random();
-        position = new Vector2f(resolutionX + sprite.getGlobalBounds().width, rng.nextInt() % 8 * 100);
+        position = new Vector2f(resolutionX + sprite.getLocalBounds().width, rng.nextInt() % 8 * 100);
         speedModifier = rng.nextInt() % 151;
     }
     public void update(float elapsedTime) {
-        if (sprite.getGlobalBounds().left + sprite.getGlobalBounds().width <= 0) {
+        if (sprite.getGlobalBounds().left + sprite.getGlobalBounds().width < 0) {
             System.out.println("spawning");
             spawn();
             return;
         }
-        System.out.println("moving");
-        position = new Vector2f(position.x - (speed + speedModifier) * elapsedTime, position.y);
+        position = new Vector2f(position.x - ((speed + speedModifier) * elapsedTime), position.y);
+        System.out.println("moving: " + position.x);
+        sprite.setPosition(position);
     }
     public Sprite getSprite() {
         return sprite;

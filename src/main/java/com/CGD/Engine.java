@@ -48,6 +48,7 @@ public class Engine {
             System.out.println("cloud update");
             el.update(dtAsSeconds);
         }
+        cloud.update(dtAsSeconds);
     }
     private void draw() {
         window.clear(new Color(0, 147, 255));
@@ -56,10 +57,12 @@ public class Engine {
             System.out.println("cloud draw");
             window.draw(el.getSprite());
         }
+        window.draw(cloud.getSprite());
         window.display();
     }
     private RenderWindow window;
     private final Vector2i resolution = new Vector2i(1280, 720);
     private Player player = new Player();
     private Vector<Cloud> clouds = new Vector<Cloud>(resolution.x);
+    private Cloud cloud = new Cloud(resolution.x);
 }
