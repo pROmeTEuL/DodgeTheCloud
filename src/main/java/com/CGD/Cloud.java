@@ -16,15 +16,15 @@ public class Cloud {
         switch (Math.abs(rng.nextInt() % 3)) {
             case 0:
                 sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1.png"));
-                System.out.println("cloud created with sprite 1");
+//                System.out.println("cloud created with sprite 1");
                 break;
             case 1:
                 sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud2.png"));
-                System.out.println("cloud created with sprite 2");
+//                System.out.println("cloud created with sprite 2");
                 break;
             case 2:
                 sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud3.png"));
-                System.out.println("cloud created with sprite 3");
+//                System.out.println("cloud created with sprite 3");
                 break;
             default:
                 System.out.println("Random failed!");
@@ -37,12 +37,12 @@ public class Cloud {
     }
     public void update(float elapsedTime) {
         if (sprite.getGlobalBounds().left + sprite.getGlobalBounds().width < 0) {
-            System.out.println("spawning");
+//            System.out.println("spawning");
             spawn();
             return;
         }
         position = new Vector2f(position.x - ((speed + speedModifier) * elapsedTime), position.y);
-        System.out.println("moving: " + position.x + ";" + position.y);
+//        System.out.println("moving: " + position.x + ";" + position.y);
         sprite.setPosition(position);
     }
     public Sprite getSprite() {

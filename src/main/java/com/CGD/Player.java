@@ -18,11 +18,11 @@ public class Player {
         switch (event.asKeyEvent().key) {
             case UP:
                 up = (event.type == Event.Type.KEY_PRESSED);
-                System.out.println("up");
+//                System.out.println("up");
                 break;
             case DOWN:
                 down = (event.type == Event.Type.KEY_PRESSED);
-                System.out.println("down");
+//                System.out.println("down");
                 break;
             default:
                 break;
@@ -34,6 +34,10 @@ public class Player {
         if (down && sprite.getGlobalBounds().top + sprite.getGlobalBounds().height < resolutionY)
             position = new Vector2f(position.x, position.y + elapsedTime * speed);
         sprite.setPosition(position);
+    }
+    public void stop() {
+        up = false;
+        down = false;
     }
     public Sprite getSprite() {
         return sprite;
