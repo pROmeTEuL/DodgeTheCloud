@@ -8,32 +8,32 @@ import java.util.Random;
 public class Cloud {
     public Cloud(float givenResolutionX) {
         resolutionX = givenResolutionX;
+        spawn();
+        sprite.setOrigin(0, 0);
+    }
+    public void spawn() {
         Random rng = new Random();
         switch (rng.nextInt() % 3) {
             case 0:
-                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1"));
+                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1.png"));
                 System.out.println("cloud created with sprite 1");
                 break;
             case 1:
-                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud2"));
+                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud2.png"));
                 System.out.println("cloud created with sprite 2");
                 break;
             case 2:
-                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud3"));
+                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud3.png"));
                 System.out.println("cloud created with sprite 3");
                 break;
             default:
                 System.out.println("Random failed!");
-                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1"));
+                sprite = new Sprite(TextureHolder.getInstance().getTexture("graphics/cloud1.png"));
                 break;
         }
-        sprite.setOrigin(0, 0);
-        position = new Vector2f(resolutionX + sprite.getLocalBounds().width, 0);
-    }
-    public void spawn() {
-        Random rng = new Random();
-        position = new Vector2f(resolutionX + sprite.getLocalBounds().width, rng.nextInt() % 8 * 100);
+        position = new Vector2f(resolutionX + sprite.getLocalBounds().width, rng.nextInt() % 7 * 100);
         speedModifier = rng.nextInt() % 151;
+        sprite.setPosition(position);
     }
     public void update(float elapsedTime) {
         if (sprite.getGlobalBounds().left + sprite.getGlobalBounds().width < 0) {
