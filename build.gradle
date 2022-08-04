@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+apply {
+    plugins
+}
+
+group 'com'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('libs/jsfml.jar')
+}
+
+test {
+    useJUnitPlatform()
+}
