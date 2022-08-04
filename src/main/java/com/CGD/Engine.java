@@ -8,11 +8,11 @@ import org.jsfml.window.event.*;
 public class Engine {
 
     Engine() {
-        m_window = new RenderWindow(new VideoMode(resolution.x, resolution.y), "Game", WindowStyle.DEFAULT);
+        window = new RenderWindow(new VideoMode(resolution.x, resolution.y), "Game", WindowStyle.DEFAULT);
     }
     public void run() {
         Clock clock = new Clock();
-        while (m_window.isOpen()) {
+        while (window.isOpen()) {
             Time dt = clock.restart();
             input();
             update(dt.asSeconds());
@@ -20,15 +20,15 @@ public class Engine {
         }
     }
     private void input() {
-        for (Event event : m_window.pollEvents()) {
+        for (Event event : window.pollEvents()) {
             switch (event.type) {
                 case CLOSED:
-                    m_window.close();
+                    window.close();
                     break;
                 case KEY_PRESSED:
                     switch (event.asKeyEvent().key) {
                         case ESCAPE:
-                            m_window.close();
+                            window.close();
                             break;
                         default:
                             break;
@@ -37,18 +37,18 @@ public class Engine {
                 default:
                     break;
             }
-            m_player.handleInput(event);
+            player.handleInput(event);
         }
     }
     private void update(float dtAsSeconds) {
-        m_player.update(dtAsSeconds, resolution.y);
+        player.update(dtAsSeconds, resolution.y);
     }
     private void draw() {
-        m_window.clear(new Color(0, 147, 255));
-        m_window.draw(m_player.getSprite());
-        m_window.display();
+        window.clear(new Color(0, 147, 255));
+        window.draw(player.getSprite());
+        window.display();
     }
-    private RenderWindow m_window;
+    private RenderWindow window;
     private final Vector2i resolution = new Vector2i(1280, 720);
-    private Player m_player = new Player();
+    private Player player = new Player();
 }

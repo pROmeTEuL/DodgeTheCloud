@@ -15,8 +15,8 @@ public class TextureHolder {
     }
     public Texture getTexture(String filename) {
         String path = "src/main/resources/" + filename;
-        if (m_Textures.containsKey(path))
-            return m_Textures.get(path);
+        if (textures.containsKey(path))
+            return textures.get(path);
         Texture texture = new Texture();
         try {
             texture.loadFromFile(Path.of(path));
@@ -24,9 +24,9 @@ public class TextureHolder {
             System.out.println("FAILED TO LOAD FROM FILE!");
             System.out.println(e);
         }
-        m_Textures.put(path, texture);
+        textures.put(path, texture);
         return texture;
     }
     private static TextureHolder instance = null;
-    private Map<String, Texture> m_Textures = new HashMap<>();
+    private Map<String, Texture> textures = new HashMap<>();
 }
