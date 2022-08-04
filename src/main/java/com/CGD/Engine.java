@@ -34,6 +34,8 @@ public class Engine {
                         case ESCAPE:
                             window.close();
                             break;
+                        case RETURN:
+                            playing = !playing;
                         default:
                             break;
                     }
@@ -41,23 +43,41 @@ public class Engine {
                 default:
                     break;
             }
-            player.handleInput(event);
+            if (playing)
+                player.handleInput(event);
         }
     }
     private void update(float dtAsSeconds) {
-        player.update(dtAsSeconds, resolution.y);
-        for (int i = 0; i < clouds.length; ++i)
-            clouds[i].update(dtAsSeconds);
+        if (playing) {
+            player.update(dtAsSeconds, resolution.y);
+            for (int i = 0; i < clouds.length; ++i) {
+                clouds[i].update(dtAsSeconds);
+                if (clouds[i].getSprite().getGlobalBounds().intersection(player.getSprite().getGlobalBounds()) != null) {
+
+                }
+            }
+        }
     }
     private void draw() {
         window.clear(new Color(0, 147, 255));
         window.draw(player.getSprite());
         for (int i = 0; i < clouds.length; ++i)
             window.draw(clouds[i].getSprite());
+        if (!playing) {
+            if (gameOver)
+                window.draw(gameOverText);
+            else
+                window.draw(pauseText);
+        }
         window.display();
     }
     private RenderWindow window;
     private final Vector2i resolution = new Vector2i(1280, 720);
     private Player player = new Player();
     private Cloud[] clouds = new Cloud[4];
+    private boolean playing = false;
+    private boolean gameOver = false;
+    Font font = new Font();
+    private Text pauseText = new Text();
+    private Text gameOverText = new Text();
 }
